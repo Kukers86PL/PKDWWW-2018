@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Drugstore</title>
+    <style type="text/css">
+        .btnWidth {
+            width: 80px;
+        }     
+        .col-sm-updated {        	
+    		padding-top: 7px;    		
+        }
+         .col-sm-updated a {
+         	margin-left: 30px;
+        	text-decoration: none !important;
+        }
+        .col-sm-27 {
+        	width: 27% !important	;
+        }
+    </style>
+</h:head>
+<h:body>
+	<h2><h:outputText value="Action List:"/></h2>
+
+	<div class="form-group">
+	<div class="col-sm-7">
+		<h:outputLink value="view_doctors.xhtml" styleClass="btn btn-success">Show doctors</h:outputLink>
+	</div>
+	<div class="col-sm-7"/>
+	<div class="col-sm-7">
+		<h:outputLink value="view_patients.xhtml" styleClass="btn btn-success">Show patients</h:outputLink>
+	</div>
+	<div class="col-sm-7"/>
+	<div class="col-sm-7">
+		<h:outputLink value="view_recipes.xhtml" styleClass="btn btn-success">Show recipes</h:outputLink>
+	</div>
+	<div class="col-sm-7"/>
+	<div class="col-sm-7">
+		<h:outputLink value="view_medicines.xhtml" styleClass="btn btn-success">Show medicines</h:outputLink>
+	</div>
+	</div>
+</h:body>
+</html>

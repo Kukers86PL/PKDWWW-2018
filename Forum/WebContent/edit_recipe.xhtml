@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"  xmlns:f="http://xmlns.jcp.org/jsf/core" 
+			xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <h:outputStylesheet library="css" name="bootstrap.min.css" />
+    <title>Drugstore</title>
+</h:head>
+<h:body>
+		<center><h2><h:outputText value="Edit Recipe Details Record"/></h2></center>
+        <h:form id="editRecipeForm" styleClass="form-horizontal">                        
+            <div class="form-group">
+                <h:outputLabel for="idLabel" styleClass="control-label col-sm-2">Id:</h:outputLabel>
+                <div class="col-sm-4"><h:inputText id="recipeId" value="#{recipeBean.editRecipeId}" p:readonly="readonly" styleClass="form-control" /></div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel for="firstNameLabel" styleClass="control-label col-sm-2">New Name:</h:outputLabel>
+                <div class="col-sm-4"><h:inputText id="name" value="#{recipeBean.name}" styleClass="form-control" /></div>
+            </div>
+            <!--div class="form-group">
+                <h:outputLabel for="lastNameLabel" styleClass="control-label col-sm-2">New Last Name:</h:outputLabel>
+                <div class="col-sm-4"><h:inputText id="lastName" value="#{recipeean.lastName}" styleClass="form-control" /></div>
+            </div-->
+            <h:selectOneMenu value="#{recipeBean.selectedPatientId}" colMd="2" required="true">
+                	<f:selectItems value="#{recipeBean.getPatientsItems()}" />
+            	</h:selectOneMenu>
+            	
+            	<h:selectOneMenu value="#{recipeBean.selectedDoctorId}" colMd="2" required="true">
+                	<f:selectItems value="#{recipeBean.getDoctorsItems()}" />
+            	</h:selectOneMenu>
+            
+            <div class="form-group">
+                <div class="col-sm-2" />
+                <div class="col-sm-2">
+                    <h:commandButton value="Update" action="#{recipeBean.updateRecipeDetails(recipeBean)}" styleClass="btn btn-primary updateBtnStyle " />
+                		<h:outputLink value="view_recipes.xhtml" styleClass="btn btn-success btnSpace col-sm-offset-1">View Recipes Record List</h:outputLink>
+                </div>
+                
+            </div>
+            <div class="text text-success text-edit"><h:message for="recipeId" /></div>
+        </h:form>
+    </h:body>
+</html>
