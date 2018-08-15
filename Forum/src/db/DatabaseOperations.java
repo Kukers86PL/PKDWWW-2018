@@ -14,6 +14,7 @@ import entity.Doctor;
 import entity.Medicine;
 import entity.Patient;
 import entity.Recipe;
+import entity.Song;
 
 public class DatabaseOperations {
 	private static final String PERSISTENCE_UNIT_NAME = "forum";	
@@ -27,6 +28,17 @@ public class DatabaseOperations {
 		List<Doctor> doctorsList = queryObj.getResultList();
 		if (doctorsList != null && doctorsList.size() > 0) {			
 			return doctorsList;
+		} else {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Song> getAllSongsDetails() {
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s");
+		List<Song> songsList = queryObj.getResultList();
+		if (songsList != null && songsList.size() > 0) {			
+			return songsList;
 		} else {
 			return null;
 		}
@@ -120,6 +132,15 @@ public class DatabaseOperations {
 			return (Doctor) queryObj.getSingleResult();
 	}
 	
+	public static Song getSongById(int songId) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+			Query queryObj = entityMgrObj.createQuery("Select s from Song s WHERE s.id = :id");			
+			queryObj.setParameter("id", songId);
+			return (Song) queryObj.getSingleResult();
+	}
+	
 	public static Recipe getRecipeById(int recipeId) {
 		if (!transactionObj.isActive()) {
 			transactionObj.begin();
@@ -173,6 +194,18 @@ public class DatabaseOperations {
 		return "view_recipes.xhtml?faces-redirect=true";
 	}
 	
+	public static String createSong(String title,String artist) {
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		Song song = new Song();
+		song.setTitle(title);
+		song.setArtist(artist);
+		entityMgrObj.persist(song);
+		transactionObj.commit();
+		return "view_songs.xhtml?faces-redirect=true";
+	}
+	
 	public static String createMedicine(String name,Recipe recipe) {
 		if(!transactionObj.isActive()) {
 			transactionObj.begin();
@@ -186,7 +219,7 @@ public class DatabaseOperations {
 	}
 	
 	//Update Objects
-	public static String updateObjDetails(int objId,Class className, String firstName, String lastName) {
+	public static String updateObjDetails(int objId,Class className, String title, String artist) {
 		String url = null;
 		String formName = null;
 		if (!transactionObj.isActive()) {
@@ -200,11 +233,15 @@ public class DatabaseOperations {
 			url = "edit_patient.xhtml";
 			formName = "editPatientForm:patientId";
 		}
+		if (className.getSimpleName().equals("Song")){
+			url = "edit_song.xhtml";
+			formName = "editSongForm:songId";
+		}
 		if(isObjPresent(objId,className)) {
-			Query queryObj = entityMgrObj.createQuery("UPDATE " + className.getName() +" s SET s.firstName = :firstName,s.lastName = :lastName WHERE s.id = :id");			
+			Query queryObj = entityMgrObj.createQuery("UPDATE " + className.getName() +" s SET s.title = :title,s.artist = :artist WHERE s.id = :id");			
 			queryObj.setParameter("id", objId);
-			queryObj.setParameter("firstName", firstName);
-			queryObj.setParameter("lastName", lastName);
+			queryObj.setParameter("title", title);
+			queryObj.setParameter("artist", artist);
 			int updateCount = queryObj.executeUpdate();
 			if(updateCount > 0) {
 				System.out.println("Record For Id: " + objId + " Is Updated");
@@ -254,6 +291,25 @@ public class DatabaseOperations {
 		return "edit_recipe.xhtml";
 	}
 	
+	public static String updateSongDetails(int objId, String title,String artist) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		if(isObjPresent(objId,Song.class)) {
+			Query queryObj = entityMgrObj.createQuery("UPDATE Song s SET s.title = :title, s.artist = :artist WHERE s.id = :id");			
+			queryObj.setParameter("id", objId);
+			queryObj.setParameter("title", title);
+			queryObj.setParameter("artist", artist);
+			int updateCount = queryObj.executeUpdate();
+			if(updateCount > 0) {
+				System.out.println("Record For Id: " + objId + " Is Updated");
+			}
+		}
+		transactionObj.commit();
+		FacesContext.getCurrentInstance().addMessage("editSongForm:recipeId", new FacesMessage( "Song Record #" + objId + " Is Successfully Updated In Db"));
+		return "edit_recipe.xhtml";
+	}
+	
 	//Delete
 	public static String deleteObjectDetails(int objId,Class className) {
 		String url = null;
@@ -276,6 +332,10 @@ public class DatabaseOperations {
 				if ( deleteObj instanceof Recipe) {
 					((Recipe)deleteObj).setId(objId);
 					url = "view_recipes.xhtml?faces-redirect=true";
+				}
+				if ( deleteObj instanceof Song) {
+					((Song)deleteObj).setId(objId);
+					url = "view_songs.xhtml?faces-redirect=true";
 				}
 				if ( deleteObj instanceof Medicine) {
 					((Medicine)deleteObj).setId(objId);
