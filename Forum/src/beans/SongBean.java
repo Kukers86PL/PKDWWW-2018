@@ -13,11 +13,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.servlet.ServletContext;
 
-import entity.Doctor;
-import entity.Patient;
-import entity.Recipe;
 import entity.Song;
-import entity.User;
 import db.DatabaseOperations;
 
 @ManagedBean
