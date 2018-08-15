@@ -73,6 +73,11 @@ public class DatabaseOperations {
 			if(updateCount > 0) {
 				System.out.println("Record For Id: " + objId + " Is Updated");
 			}
+			Song song = new Song();
+			song.setId(objId);
+			song.setTitle(title);
+			song.setArtist(artist);
+		    entityMgrObj.merge(song);
 		}
 		transactionObj.commit();
 		return "view_songs.xhtml?faces-redirect=true";
