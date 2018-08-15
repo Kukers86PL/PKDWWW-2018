@@ -71,8 +71,8 @@ public class SongBean {
         return songsList;
     }
 
-	public String addNewSong(SongBean song) {
-		return DatabaseOperations.createNewSong("t1","a1");		
+    public String addNewSong(SongBean song) {
+		return DatabaseOperations.createNewSong(song.getTitle(),song.getArtist());		
 	}
 	
 	public String deleteSongDetailsById(int songId) {
@@ -82,9 +82,5 @@ public class SongBean {
 	public String editSongDetailsById() {
 		editSongId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedSongId");		
 		return "edit_song.xhtml";
-	}
-	
-	public String updateSongDetails(SongBean song) {
-		return DatabaseOperations.updateObjDetails(Integer.parseInt(song.getEditSongId()),Song.class, song.getTitle(),song.getArtist());		
 	}
 }
