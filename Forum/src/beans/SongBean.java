@@ -83,4 +83,8 @@ public class SongBean {
 		editSongId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedSongId");		
 		return "edit_song.xhtml";
 	}
+	
+	public String updateSongDetails(SongBean songBean) {
+		return DatabaseOperations.updateSongDetails(Integer.parseInt(songBean.getEditSongId()), songBean.getTitle(), songBean.getArtist());		
+	}
 }

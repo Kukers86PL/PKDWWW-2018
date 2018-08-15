@@ -59,7 +59,8 @@ public class DatabaseOperations {
 	}
 	
 	//Update Objects
-	public static String updateSongDetails(int objId, String title,String artist) {
+	
+	public static String updateSongDetails(int objId, String title, String artist) {
 		if (!transactionObj.isActive()) {
 			transactionObj.begin();
 		}
@@ -74,8 +75,7 @@ public class DatabaseOperations {
 			}
 		}
 		transactionObj.commit();
-		FacesContext.getCurrentInstance().addMessage("editSongForm:recipeId", new FacesMessage( "Song Record #" + objId + " Is Successfully Updated In Db"));
-		return "edit_recipe.xhtml";
+		return "view_songs.xhtml?faces-redirect=true";
 	}
 	
 	//Delete
