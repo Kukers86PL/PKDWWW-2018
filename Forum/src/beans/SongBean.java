@@ -75,12 +75,12 @@ public class SongBean {
 		return "show_songs.xhtml";
 	}
 
-	public String addNewSong(SongBean doc) {
-		return DatabaseOperations.createNewObject(doc.getTitle(),doc.getArtist(),Song.class);		
+	public String addNewSong(SongBean song) {
+		return DatabaseOperations.createSong(song.getTitle(),song.getArtist());		
 	}
 	
-	public String deleteSongDetailsById(int docId) {
-		return DatabaseOperations.deleteObjectDetails(docId,Song.class);		
+	public String deleteSongDetailsById(int songId) {
+		return DatabaseOperations.deleteObjectDetails(songId,Song.class);		
 	}
 	
 	public String editSongDetailsById() {

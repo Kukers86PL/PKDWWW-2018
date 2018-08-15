@@ -28,12 +28,12 @@
             <div class="col-sm-5"><h:outputText value="Auto Selected By The System :)" styleClass="text text-success" /></div>
         </div>
         <div class="form-group">
-            <h:outputLabel for="title" styleClass="control-label col-sm-4">Title:</h:outputLabel>
+            <h:outputLabel for="song-title" styleClass="control-label col-sm-4">Title:</h:outputLabel>
             <div class="col-sm-5">
                 <h:inputText id="song-title" value="#{songBean.title}" styleClass="form-control" required="true" requiredMessage="Title Cannot Be Blank" />
             </div>
             <h:message for="song-title" styleClass="text text-danger" />
-            <h:outputLabel for="artist" styleClass="control-label col-sm-4">Last Name:</h:outputLabel>
+            <h:outputLabel for="artist" styleClass="control-label col-sm-4">Artist:</h:outputLabel>
             <div class="col-sm-5">
                 <h:inputText id="song-artist" value="#{songBean.artist}" styleClass="form-control" required="true" requiredMessage="Artist Cannot Be Blank" />
             </div>
