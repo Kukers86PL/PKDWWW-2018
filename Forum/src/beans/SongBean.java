@@ -70,13 +70,9 @@ public class SongBean {
         }
         return songsList;
     }
-	
-    public String showSongsById() {
-		return "show_songs.xhtml";
-	}
 
 	public String addNewSong(SongBean song) {
-		return DatabaseOperations.createSong(song.getTitle(),song.getArtist());		
+		return DatabaseOperations.createNewSong("t1","a1");		
 	}
 	
 	public String deleteSongDetailsById(int songId) {
@@ -88,7 +84,7 @@ public class SongBean {
 		return "edit_song.xhtml";
 	}
 	
-	public String updateSongDetails(SongBean docBean) {
-		return DatabaseOperations.updateObjDetails(Integer.parseInt(docBean.getEditSongId()),Song.class, docBean.getTitle(),docBean.getArtist());		
+	public String updateSongDetails(SongBean song) {
+		return DatabaseOperations.updateObjDetails(Integer.parseInt(song.getEditSongId()),Song.class, song.getTitle(),song.getArtist());		
 	}
 }
