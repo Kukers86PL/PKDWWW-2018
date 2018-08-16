@@ -22,7 +22,7 @@ import db.DatabaseOperations;
 public class AlbumBean {
 	private EntityManager manager;
 	private String title;
-	private List<AlbumBean> albumsList;
+	private List<Album> albumsList;
 	private String editAlbumId;
 
 	public AlbumBean() {
@@ -56,7 +56,7 @@ public class AlbumBean {
 		albumsList = DatabaseOperations.getAllAlbumsDetails();
     }
 
-    public List<AlbumBean> getSongsList() {
+    public List<Album> getAlbumsList() {
         if (FacesContext.getCurrentInstance().getRenderResponse()) {
             loadDataList(); // Reload to get most recent data.
         }
@@ -68,7 +68,7 @@ public class AlbumBean {
 	}
 	
 	public String deleteAlbumDetailsById(int albumId) {
-		return DatabaseOperations.deleteObjectDetails(albumId,Song.class);		
+		return DatabaseOperations.deleteObjectDetails(albumId,Album.class);		
 	}
 	
 	public String editAlbumDetailsById() {

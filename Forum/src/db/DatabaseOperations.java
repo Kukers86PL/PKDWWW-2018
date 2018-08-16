@@ -9,12 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import beans.DoctorBean;
 import entity.Album;
-import entity.Doctor;
-import entity.Medicine;
-import entity.Patient;
-import entity.Recipe;
 import entity.Song;
 
 public class DatabaseOperations {
@@ -87,7 +82,7 @@ public class DatabaseOperations {
 		album.setTitle(title);
 		entityMgrObj.persist(album);
 		transactionObj.commit();
-		return "view_songs.xhtml?faces-redirect=true";
+		return "view_albums.xhtml?faces-redirect=true";
 	}
 	
 	//Update Objects
@@ -133,7 +128,7 @@ public class DatabaseOperations {
 		    entityMgrObj.merge(album);
 		}
 		transactionObj.commit();
-		return "view_songs.xhtml?faces-redirect=true";
+		return "view_albums.xhtml?faces-redirect=true";
 	}
 	
 	//Delete
@@ -150,6 +145,10 @@ public class DatabaseOperations {
 				if ( deleteObj instanceof Song) {
 					((Song)deleteObj).setId(objId);
 					url = "view_songs.xhtml?faces-redirect=true";
+				}
+				if ( deleteObj instanceof Album) {
+					((Album)deleteObj).setId(objId);
+					url = "view_albums.xhtml?faces-redirect=true";
 				}
 				entityMgrObj.remove(entityMgrObj.merge(deleteObj));
 			}		
