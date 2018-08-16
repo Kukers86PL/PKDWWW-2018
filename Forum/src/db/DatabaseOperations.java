@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import beans.DoctorBean;
+import entity.Album;
 import entity.Doctor;
 import entity.Medicine;
 import entity.Patient;
@@ -34,6 +35,17 @@ public class DatabaseOperations {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static List<Album> getAllAlbumsDetails() {
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Album s");
+		List<Album> albumsList = queryObj.getResultList();
+		if (albumsList != null && albumsList.size() > 0) {			
+			return albumsList;
+		} else {
+			return null;
+		}
+	}
+	
 	//Select Object by Id
 	public static Song getSongById(int songId) {
 		if (!transactionObj.isActive()) {
@@ -41,6 +53,15 @@ public class DatabaseOperations {
 		}
 			Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE s.id = :id");			
 			queryObj.setParameter("id", songId);
+			return (Song) queryObj.getSingleResult();
+	}
+	
+	public static Song getAlbumById(int albumId) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+			Query queryObj = entityMgrObj.createQuery("SELECT s FROM Album s WHERE s.id = :id");			
+			queryObj.setParameter("id", albumId);
 			return (Song) queryObj.getSingleResult();
 	}
 	
@@ -54,6 +75,17 @@ public class DatabaseOperations {
 		song.setTitle(title);
 		song.setArtist(artist);
 		entityMgrObj.persist(song);
+		transactionObj.commit();
+		return "view_songs.xhtml?faces-redirect=true";
+	}
+	
+	public static String createNewAlbum(String title) {
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		Album album = new Album();
+		album.setTitle(title);
+		entityMgrObj.persist(album);
 		transactionObj.commit();
 		return "view_songs.xhtml?faces-redirect=true";
 	}
@@ -78,6 +110,27 @@ public class DatabaseOperations {
 			song.setTitle(title);
 			song.setArtist(artist);
 		    entityMgrObj.merge(song);
+		}
+		transactionObj.commit();
+		return "view_songs.xhtml?faces-redirect=true";
+	}
+	
+	public static String updateAlbumDetails(int objId, String title) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		if(isObjPresent(objId,Album.class)) {
+			Query queryObj = entityMgrObj.createQuery("UPDATE Album s SET s.title = :title WHERE s.id = :id");			
+			queryObj.setParameter("id", objId);
+			queryObj.setParameter("title", title);
+			int updateCount = queryObj.executeUpdate();
+			if(updateCount > 0) {
+				System.out.println("Record For Id: " + objId + " Is Updated");
+			}
+			Album album = new Album();
+			album.setId(objId);
+			album.setTitle(title);
+		    entityMgrObj.merge(album);
 		}
 		transactionObj.commit();
 		return "view_songs.xhtml?faces-redirect=true";

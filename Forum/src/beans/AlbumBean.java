@@ -19,14 +19,13 @@ import db.DatabaseOperations;
 
 @ManagedBean
 @SessionScoped
-public class SongBean {
+public class AlbumBean {
 	private EntityManager manager;
 	private String title;
-	private String artist;
-	private List<Song> songsList;
-	private String editSongId;
+	private List<AlbumBean> albumsList;
+	private String editAlbumId;
 
-	public SongBean() {
+	public AlbumBean() {
 		ServletContext sc = (ServletContext)
 				FacesContext
 				.getCurrentInstance()
@@ -37,12 +36,12 @@ public class SongBean {
 		manager = emf.createEntityManager();
 	}
 	
-	public String getEditSongId() {
-		return editSongId;
+	public String getEditAlbumId() {
+		return editAlbumId;
 	}
 
-	public void setEditSongId(String editSongId) {
-		this.editSongId = editSongId;
+	public void setEditAlbumId(String editAlbumId) {
+		this.editAlbumId = editAlbumId;
 	}
 
 	public String getTitle() {
@@ -52,40 +51,32 @@ public class SongBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
 	
 	private void loadDataList() {
-		songsList = DatabaseOperations.getAllSongsDetails();
+		albumsList = DatabaseOperations.getAllAlbumsDetails();
     }
 
-    public List<Song> getSongsList() {
+    public List<AlbumBean> getSongsList() {
         if (FacesContext.getCurrentInstance().getRenderResponse()) {
             loadDataList(); // Reload to get most recent data.
         }
-        return songsList;
+        return albumsList;
     }
 
-    public String addNewSong(SongBean song) {
-		return DatabaseOperations.createNewSong(song.getTitle(),song.getArtist());		
+    public String addNewAlbum(AlbumBean album) {
+		return DatabaseOperations.createNewAlbum(album.getTitle());		
 	}
 	
-	public String deleteSongDetailsById(int songId) {
-		return DatabaseOperations.deleteObjectDetails(songId,Song.class);		
+	public String deleteAlbumDetailsById(int albumId) {
+		return DatabaseOperations.deleteObjectDetails(albumId,Song.class);		
 	}
 	
-	public String editSongDetailsById() {
-		editSongId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedSongId");		
-		return "edit_song.xhtml";
+	public String editAlbumDetailsById() {
+		editAlbumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedAlbumId");		
+		return "edit_album.xhtml";
 	}
 	
-	public String updateSongDetails(SongBean songBean) {
-		return DatabaseOperations.updateSongDetails(Integer.parseInt(songBean.getEditSongId()), songBean.getTitle(), songBean.getArtist());		
+	public String updateAlbumDetails(AlbumBean albumBean) {
+		return DatabaseOperations.updateAlbumDetails(Integer.parseInt(albumBean.getEditAlbumId()), albumBean.getTitle());		
 	}
 }

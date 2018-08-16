@@ -8,21 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Song {
+public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(length=50)
 	private String title;
-	@Column(length=50)
-	private String artist;
-	@ManyToOne
-	@JoinColumn(name="album_id")
-	private Album album;
+	@OneToMany(mappedBy="album")
+	private List<Song> songs;
 	public int getId() {
 		return id;
 	}
@@ -35,16 +31,10 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getArtist() {
-		return artist;
+	public List<Song> getSongs() {
+		return songs;
 	}
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-	public Album getAlbum() {
-		return album;
-	}
-	public void setAlbum(Album album) {
-		this.album = album;
+	public void setSongs(List<Song> songs) {
+		this.songs = songs;
 	}
 }
