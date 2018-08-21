@@ -31,10 +31,10 @@ public class Album {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public List<Song> getSongs() {
+	public List<Song> getSongsList() {
 		return songs;
 	}
-	public void setSongs(List<Song> songs) {
+	public void setSongsList(List<Song> songs) {
 		this.songs = songs;
 	}
 }

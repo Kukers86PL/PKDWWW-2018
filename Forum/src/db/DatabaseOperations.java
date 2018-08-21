@@ -41,6 +41,18 @@ public class DatabaseOperations {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static List<Song> getAlbumSongs(Album album) {
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE s.album = :album_id");
+		queryObj.setParameter("album_id", album);
+		List<Song> songsList = queryObj.getResultList();
+		if (songsList != null && songsList.size() > 0) {			
+			return songsList;
+		} else {
+			return null;
+		}
+	}
+	
 	//Select Object by Id
 	public static Song getSongById(int songId) {
 		if (!transactionObj.isActive()) {
@@ -51,13 +63,13 @@ public class DatabaseOperations {
 			return (Song) queryObj.getSingleResult();
 	}
 	
-	public static Song getAlbumById(int albumId) {
+	public static Album getAlbumById(int albumId) {
 		if (!transactionObj.isActive()) {
 			transactionObj.begin();
 		}
 			Query queryObj = entityMgrObj.createQuery("SELECT s FROM Album s WHERE s.id = :id");			
 			queryObj.setParameter("id", albumId);
-			return (Song) queryObj.getSingleResult();
+			return (Album) queryObj.getSingleResult();
 	}
 	
 	//Create Objects

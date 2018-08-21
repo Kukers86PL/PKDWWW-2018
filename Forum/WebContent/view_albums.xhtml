@@ -37,6 +37,12 @@
                 <f:facet name="header">Delete</f:facet>
                 <h:commandButton action="#{albumBean.deleteAlbumDetailsById(album.id)}" value="Delete" styleClass="btn btn-danger" />
             </h:column>
+            <h:column>
+            <f:facet name="header">Songs</f:facet>
+                <h:commandButton action="#{albumBean.showSongsById()}" value="Songs" styleClass="btn btn-primary">
+                	<f:param name="selectedAlbumId" value="#{album.id}" />
+                </h:commandButton>
+            </h:column>
         </h:dataTable>
         <center>
         	<h:commandButton action="add_album.xhtml?faces-redirect=true" value="Add New Album" styleClass="btn btn-success btnSpace" />
