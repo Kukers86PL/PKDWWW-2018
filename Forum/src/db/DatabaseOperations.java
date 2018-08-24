@@ -155,6 +155,18 @@ public class DatabaseOperations {
 	}
 	
 	//Delete
+	
+	public static String deleteAlbumSong(Album album, Song song)
+	{
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		song.setAlbum(null);
+		entityMgrObj.persist(song);
+		transactionObj.commit();	
+		return "view_album_songs.xhtml?faces-redirect=true";
+	}
+	
 	public static String deleteObjectDetails(int objId,Class className) {
 		String url = null;
 		if (!transactionObj.isActive()) {

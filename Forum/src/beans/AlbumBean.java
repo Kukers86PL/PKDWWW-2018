@@ -100,4 +100,13 @@ public class AlbumBean {
 		album = DatabaseOperations.getAlbumById(Integer.parseInt(editAlbumId));
 		return DatabaseOperations.createAlbumSong(album, song);
 	}
+	
+	public String remSongById(int songId)
+	{
+		Song song = new Song();
+		song = DatabaseOperations.getSongById(songId);
+		Album album = new Album();
+		album = DatabaseOperations.getAlbumById(Integer.parseInt(editAlbumId));
+		return DatabaseOperations.deleteAlbumSong(album, song);
+	}
 }

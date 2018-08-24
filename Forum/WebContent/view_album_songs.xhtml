@@ -31,6 +31,10 @@
                 <f:facet name="header">Artist</f:facet>
                 <h:outputText value="#{song.artist}" />
             </h:column>
+            <h:column>
+                <f:facet name="header">Remove</f:facet>
+                <h:commandButton action="#{albumBean.remSongById(song.id)}" value="Remove" styleClass="btn btn-danger" />
+            </h:column>
         </h:dataTable>
         <center>
         	<h:commandButton action="add_album_songs.xhtml?faces-redirect=true" value="Add Song" styleClass="btn btn-success btnSpace" />	
