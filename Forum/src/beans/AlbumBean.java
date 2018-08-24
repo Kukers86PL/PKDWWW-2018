@@ -88,8 +88,17 @@ public class AlbumBean {
 	
 	public List<Song> getAlbumSongsList(){
 		Album album = new Album();
-		editAlbumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedAlbumId");
+		editAlbumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("editAlbumId");
 		album = DatabaseOperations.getAlbumById(Integer.parseInt(editAlbumId));
 		return DatabaseOperations.getAlbumSongs(album);
+	}
+	
+	public String addSongById(int songId)
+	{
+		Song song = new Song();
+		song = DatabaseOperations.getSongById(songId);
+		Album album = new Album();
+		album = DatabaseOperations.getAlbumById(Integer.parseInt(editAlbumId));
+		return DatabaseOperations.createAlbumSong(album, song);
 	}
 }

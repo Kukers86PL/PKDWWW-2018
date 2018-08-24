@@ -16,9 +16,9 @@
     </style>
 </h:head>
 <h:body>
-    <center><h2><h:outputText value="Album Songs"/></h2></center>
+    <center><h2><h:outputText value="Songs"/></h2></center>
     <h:form id="songForm">
-        <h:dataTable id="albumSongsTable"  value="#{albumBean.getAlbumSongsList()}" var="song" styleClass="table table-striped table-bordered tableUpdated">
+        <h:dataTable id="songsTable"  value="#{songBean.getSongsList()}" var="song" styleClass="table table-striped table-bordered tableUpdated">
             <h:column>
                 <f:facet name="header">Id</f:facet>
                 <h:outputText value="#{song.id}" />                
@@ -31,9 +31,13 @@
                 <f:facet name="header">Artist</f:facet>
                 <h:outputText value="#{song.artist}" />
             </h:column>
+            <h:column>
+                <f:facet name="header">Add</f:facet>
+                <h:commandButton action="#{albumBean.addSongById(song.id)}" value="Add" styleClass="btn btn-primary">
+                </h:commandButton>
+            </h:column>
         </h:dataTable>
         <center>
-        	<h:commandButton action="add_album_song.xhtml?faces-redirect=true" value="Add Song" styleClass="btn btn-success btnSpace" />
 			<h:commandButton action="index.xhtml" value="Action List" styleClass="btn btn-success btnSpace" />
        	</center>
     </h:form>

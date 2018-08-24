@@ -97,6 +97,17 @@ public class DatabaseOperations {
 		return "view_albums.xhtml?faces-redirect=true";
 	}
 	
+	public static String createAlbumSong(Album album, Song song)
+	{
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		album.setSong(song);
+		entityMgrObj.persist(album);
+		transactionObj.commit();
+		return "view_album_songs.xhtml?faces-redirect=true";
+	}
+	
 	//Update Objects
 	
 	public static String updateSongDetails(int objId, String title, String artist) {
