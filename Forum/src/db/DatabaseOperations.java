@@ -102,9 +102,9 @@ public class DatabaseOperations {
 		if(!transactionObj.isActive()) {
 			transactionObj.begin();
 		}
-		album.setSong(song);
-		entityMgrObj.persist(album);
-		transactionObj.commit();
+		song.setAlbum(album);
+		entityMgrObj.persist(song);
+		transactionObj.commit();	
 		return "view_album_songs.xhtml?faces-redirect=true";
 	}
 	

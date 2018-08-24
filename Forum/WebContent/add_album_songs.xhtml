@@ -17,7 +17,7 @@
 </h:head>
 <h:body>
     <center><h2><h:outputText value="Songs"/></h2></center>
-    <h:form id="songForm">
+    <h:form id="AlbumSongsForm">
         <h:dataTable id="songsTable"  value="#{songBean.getSongsList()}" var="song" styleClass="table table-striped table-bordered tableUpdated">
             <h:column>
                 <f:facet name="header">Id</f:facet>

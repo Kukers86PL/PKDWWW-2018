@@ -80,15 +80,14 @@ public class AlbumBean {
 		return DatabaseOperations.updateAlbumDetails(Integer.parseInt(albumBean.getEditAlbumId()), albumBean.getTitle());		
 	}
 	
-	public String showSongsById()
+	public String showSongsById(String editAlbumId)
 	{
-		editAlbumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("selectedAlbumId");
+		this.editAlbumId = editAlbumId;
 		return "view_album_songs.xhtml";
 	}
 	
 	public List<Song> getAlbumSongsList(){
 		Album album = new Album();
-		editAlbumId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("editAlbumId");
 		album = DatabaseOperations.getAlbumById(Integer.parseInt(editAlbumId));
 		return DatabaseOperations.getAlbumSongs(album);
 	}

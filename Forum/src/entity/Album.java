@@ -21,9 +21,6 @@ public class Album {
 	private String title;
 	@OneToMany(mappedBy="album")
 	private List<Song> songs;
-	@ManyToOne
-	@JoinColumn(name="song_id")
-	private Song song;
 	
 	public int getId() {
 		return id;
@@ -42,11 +39,5 @@ public class Album {
 	}
 	public void setSongsList(List<Song> songs) {
 		this.songs = songs;
-	}
-	public Song getSong() {
-		return song;
-	}
-	public void setSong(Song song) {
-		this.song = song;
 	}
 }
