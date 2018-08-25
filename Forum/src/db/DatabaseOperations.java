@@ -1,5 +1,6 @@
 package db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -147,10 +148,13 @@ public class DatabaseOperations {
 		if(!transactionObj.isActive()) {
 			transactionObj.begin();
 		}
-		song.setPlaylist(playlist);
+		List<Playlist> tmp = song.getPlaylist();
+		if (tmp == null) tmp = new ArrayList<Playlist>();
+		tmp.add(playlist);
+		song.setPlaylist(tmp);
 		entityMgrObj.persist(song);
 		transactionObj.commit();	
-		return "view_album_songs.xhtml?faces-redirect=true";
+		return "view_playlist_songs.xhtml?faces-redirect=true";
 	}
 	
 	public static String createAlbumSong(Album album, Song song)
