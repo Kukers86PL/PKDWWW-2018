@@ -14,22 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Song {
+public class Playlist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(length=50)
 	private String title;
-	@Column(length=50)
-	private String artist;
-	@ManyToOne
-	@JoinColumn(name="album_id")
-	private Album album;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "playlist_song", joinColumns = { @JoinColumn(name = "playlist_id") }, inverseJoinColumns = { @JoinColumn(name = "song_id") })
-	private Set<Playlist> playlists;
+	@ManyToMany(cascade=CascadeType.ALL, mappedBy="playlists")
+	private Set<Song> songs;
 	
 	public int getId() {
 		return id;
@@ -43,22 +38,10 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getArtist() {
-		return artist;
+	public Set<Song> getSongsList() {
+		return songs;
 	}
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-	public Album getAlbum() {
-		return album;
-	}
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
-	public Set<Playlist> getPlaylist() {
-		return playlists;
-	}
-	public void setPlaylist(Set<Playlist> playlists) {
-		this.playlists = playlists;
+	public void setSongsList(Set<Song> songs) {
+		this.songs = songs;
 	}
 }

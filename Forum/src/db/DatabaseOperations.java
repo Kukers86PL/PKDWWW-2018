@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import entity.Album;
+import entity.Playlist;
 import entity.Song;
 
 public class DatabaseOperations {
@@ -18,6 +19,17 @@ public class DatabaseOperations {
 	private static EntityTransaction transactionObj = entityMgrObj.getTransaction();
 	
 	//Select All Objects
+	
+	@SuppressWarnings("unchecked")
+	public static List<Playlist> getAllPlaylistsDetails() {
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Playlist s");
+		List<Playlist> playlistsList = queryObj.getResultList();
+		if (playlistsList != null && playlistsList.size() > 0) {			
+			return playlistsList;
+		} else {
+			return null;
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static List<Song> getAllSongsDetails() {
@@ -42,6 +54,18 @@ public class DatabaseOperations {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static List<Song> getPlaylistSongs(Playlist playlist) {
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE s.playlist = :playlist_id");
+		queryObj.setParameter("playlist_id", playlist);
+		List<Song> songsList = queryObj.getResultList();
+		if (songsList != null && songsList.size() > 0) {			
+			return songsList;
+		} else {
+			return null;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static List<Song> getAlbumSongs(Album album) {
 		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE s.album = :album_id");
 		queryObj.setParameter("album_id", album);
@@ -54,6 +78,16 @@ public class DatabaseOperations {
 	}
 	
 	//Select Object by Id
+	
+	public static Song getPlaylistById(int playlistId) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+			Query queryObj = entityMgrObj.createQuery("SELECT s FROM Playlist s WHERE s.id = :id");			
+			queryObj.setParameter("id", playlistId);
+			return (Song) queryObj.getSingleResult();
+	}
+	
 	public static Song getSongById(int songId) {
 		if (!transactionObj.isActive()) {
 			transactionObj.begin();
@@ -73,7 +107,18 @@ public class DatabaseOperations {
 	}
 	
 	//Create Objects
-	 
+	
+	public static String createNewPlaylist(String title) {
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		Playlist playlist = new Playlist();
+		playlist.setTitle(title);
+		entityMgrObj.persist(playlist);
+		transactionObj.commit();
+		return "view_playlists.xhtml?faces-redirect=true";
+	}
+	
 	public static String createNewSong(String title,String artist) {
 		if(!transactionObj.isActive()) {
 			transactionObj.begin();
@@ -95,6 +140,17 @@ public class DatabaseOperations {
 		entityMgrObj.persist(album);
 		transactionObj.commit();
 		return "view_albums.xhtml?faces-redirect=true";
+	}
+	
+	public static String createPlaylistSong(Playlist playlist, Song song)
+	{
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		song.setPlaylist(playlist);
+		entityMgrObj.persist(song);
+		transactionObj.commit();	
+		return "view_album_songs.xhtml?faces-redirect=true";
 	}
 	
 	public static String createAlbumSong(Album album, Song song)
@@ -154,7 +210,39 @@ public class DatabaseOperations {
 		return "view_albums.xhtml?faces-redirect=true";
 	}
 	
+	public static String updatePlaylistDetails(int objId, String title) {
+		if (!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		if(isObjPresent(objId,Playlist.class)) {
+			Query queryObj = entityMgrObj.createQuery("UPDATE Playlist s SET s.title = :title WHERE s.id = :id");			
+			queryObj.setParameter("id", objId);
+			queryObj.setParameter("title", title);
+			int updateCount = queryObj.executeUpdate();
+			if(updateCount > 0) {
+				System.out.println("Record For Id: " + objId + " Is Updated");
+			}
+			Playlist playlist = new Playlist();
+			playlist.setId(objId);
+			playlist.setTitle(title);
+		    entityMgrObj.merge(playlist);
+		}
+		transactionObj.commit();
+		return "view_playlists.xhtml?faces-redirect=true";
+	}
+	
 	//Delete
+	
+	public static String deletePlaylistSong(Playlist playlist, Song song)
+	{
+		if(!transactionObj.isActive()) {
+			transactionObj.begin();
+		}
+		song.setPlaylist(null);
+		entityMgrObj.persist(song);
+		transactionObj.commit();	
+		return "view_playlist_songs.xhtml?faces-redirect=true";
+	}
 	
 	public static String deleteAlbumSong(Album album, Song song)
 	{
