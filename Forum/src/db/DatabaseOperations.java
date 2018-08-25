@@ -273,6 +273,10 @@ public class DatabaseOperations {
 					((Album)deleteObj).setId(objId);
 					url = "view_albums.xhtml?faces-redirect=true";
 				}
+				if ( deleteObj instanceof Playlist) {
+					((Playlist)deleteObj).setId(objId);
+					url = "view_playlists.xhtml?faces-redirect=true";
+				}
 				entityMgrObj.remove(entityMgrObj.merge(deleteObj));
 			}		
 			transactionObj.commit();

@@ -35,7 +35,7 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Delete</f:facet>
-                <h:commandButton action="#{playlistBean.deleteAlbumDetailsById(playlist.id)}" value="Delete" styleClass="btn btn-danger" />
+                <h:commandButton action="#{playlistBean.deletePlaylistDetailsById(playlist.id)}" value="Delete" styleClass="btn btn-danger" />
             </h:column>
             <h:column>
             <f:facet name="header">Songs</f:facet>
@@ -44,7 +44,7 @@
             </h:column>
         </h:dataTable>
         <center>
-        	<h:commandButton action="add_album.xhtml?faces-redirect=true" value="Add New Album" styleClass="btn btn-success btnSpace" />
+        	<h:commandButton action="add_playlist.xhtml?faces-redirect=true" value="Add New Playlist" styleClass="btn btn-success btnSpace" />
 			<h:commandButton action="index.xhtml" value="Action List" styleClass="btn btn-success btnSpace" />
        	</center>
     </h:form>

@@ -65,7 +65,7 @@ public class PlaylistBean {
     }
 
     public String addNewPlaylist(PlaylistBean playlist) {
-		return DatabaseOperations.createNewAlbum(playlist.getTitle());		
+		return DatabaseOperations.createNewPlaylist(playlist.getTitle());		
 	}
 	
 	public String deletePlaylistDetailsById(int playlistId) {
@@ -78,7 +78,7 @@ public class PlaylistBean {
 	}
 	
 	public String updatePlaylistDetails(PlaylistBean playlistBean) {
-		return DatabaseOperations.updateAlbumDetails(Integer.parseInt(playlistBean.getEditPlaylistId()), playlistBean.getTitle());		
+		return DatabaseOperations.updatePlaylistDetails(Integer.parseInt(playlistBean.getEditPlaylistId()), playlistBean.getTitle());		
 	}
 	
 	public String showSongsById(String editPlaylistId)
