@@ -28,7 +28,7 @@ public class Song {
 	@JoinColumn(name="album_id")
 	private Album album;
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "playlist_song", joinColumns = { @JoinColumn(name = "playlist_id") }, inverseJoinColumns = { @JoinColumn(name = "song_id") })
+	@JoinTable(name = "Playlist_Song", joinColumns = { @JoinColumn(name = "playlist_id") }, inverseJoinColumns = { @JoinColumn(name = "song_id") })
 	private List<Playlist> playlists;
 	
 	public int getId() {

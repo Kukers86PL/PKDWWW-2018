@@ -55,7 +55,7 @@ public class DatabaseOperations {
 	
 	@SuppressWarnings("unchecked")
 	public static List<Song> getPlaylistSongs(Playlist playlist) {
-		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE s.playlist = :playlist_id");
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s, Playlist_Song ps WHERE ps.playlist = :playlist_id AND s.song = ps.song");
 		queryObj.setParameter("playlist_id", playlist);
 		List<Song> songsList = queryObj.getResultList();
 		if (songsList != null && songsList.size() > 0) {			
@@ -79,13 +79,13 @@ public class DatabaseOperations {
 	
 	//Select Object by Id
 	
-	public static Song getPlaylistById(int playlistId) {
+	public static Playlist getPlaylistById(int playlistId) {
 		if (!transactionObj.isActive()) {
 			transactionObj.begin();
 		}
 			Query queryObj = entityMgrObj.createQuery("SELECT s FROM Playlist s WHERE s.id = :id");			
 			queryObj.setParameter("id", playlistId);
-			return (Song) queryObj.getSingleResult();
+			return (Playlist) queryObj.getSingleResult();
 	}
 	
 	public static Song getSongById(int songId) {
