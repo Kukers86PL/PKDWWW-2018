@@ -29,8 +29,8 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Update</f:facet>
-                <h:commandButton action="#{playlistBean.editAlbumDetailsById()}" value="Update" styleClass="btn btn-primary">
-                	<f:param name="selectedPlaylistId" value="#{song.id}" />
+                <h:commandButton action="#{playlistBean.editPlaylistDetailsById()}" value="Update" styleClass="btn btn-primary">
+                	<f:param name="selectedPlaylistId" value="#{playlist.id}" />
                 </h:commandButton>
             </h:column>
             <h:column>

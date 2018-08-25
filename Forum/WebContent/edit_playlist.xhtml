@@ -23,20 +23,20 @@
     </style>
 </h:head>
 <h:body>
-		<center><h2><h:outputText value="Edit Album Details Record"/></h2></center>
+		<center><h2><h:outputText value="Edit Playlist Details Record"/></h2></center>
         <h:form id="editSongForm" styleClass="form-horizontal">                        
             <div class="form-group">
                 <h:outputLabel for="idLabel" styleClass="control-label col-sm-2">Id:</h:outputLabel>
-                <div class="col-sm-4"><h:inputText id="albumId" value="#{albumBean.editAlbumId}" p:readonly="readonly" styleClass="form-control" /></div>
+                <div class="col-sm-4"><h:inputText id="playlistId" value="#{playlistBean.editPlaylistId}" p:readonly="readonly" styleClass="form-control" /></div>
             </div>
             <div class="form-group">
                 <h:outputLabel for="titleLabel" styleClass="control-label col-sm-2">New Title:</h:outputLabel>
-                <div class="col-sm-4"><h:inputText id="title" value="#{albumBean.title}" styleClass="form-control" /></div>
+                <div class="col-sm-4"><h:inputText id="title" value="#{playlistBean.title}" styleClass="form-control" /></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2" />
                 <div class="col-sm-4">
-                    <h:commandButton value="Update" action="#{albumBean.updateAlbumDetails(albumBean)}" styleClass="btn btn-primary updateBtnStyle" />
+                    <h:commandButton value="Update" action="#{playlistBean.updatePlaylistDetails(playlistBean)}" styleClass="btn btn-primary updateBtnStyle" />
                 </div>
                 <div class="col-sm-1" />
                 <div class="col-sm-updated"><h:outputLink value="view_songs.xhtml">View Songs Record List</h:outputLink></div>
