@@ -24,7 +24,7 @@ public class Playlist {
 	@Column(length=50)
 	private String title;
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="playlists")
-	private Set<Song> songs;
+	private List<Song> songs;
 	
 	public int getId() {
 		return id;
@@ -38,10 +38,10 @@ public class Playlist {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Set<Song> getSongsList() {
+	public List<Song> getSongsList() {
 		return songs;
 	}
-	public void setSongsList(Set<Song> songs) {
+	public void setSongsList(List<Song> songs) {
 		this.songs = songs;
 	}
 }

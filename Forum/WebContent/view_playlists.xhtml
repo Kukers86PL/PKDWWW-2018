@@ -18,28 +18,28 @@
 <h:body>
     <center><h2><h:outputText value="Playlists"/></h2></center>
     <h:form id="songForm">
-        <h:dataTable id="songsTable"  value="#{playlistBean.getPlaylistsList()}" var="album" styleClass="table table-striped table-bordered tableUpdated">
+        <h:dataTable id="songsTable"  value="#{playlistBean.getPlaylistsList()}" var="playlist" styleClass="table table-striped table-bordered tableUpdated">
             <h:column>
                 <f:facet name="header">Id</f:facet>
-                <h:outputText value="#{album.id}" />                
+                <h:outputText value="#{playlist.id}" />                
             </h:column>
             <h:column>
                 <f:facet name="header">Title</f:facet>
-                <h:outputText value="#{album.title}" />
+                <h:outputText value="#{playlist.title}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Update</f:facet>
-                <h:commandButton action="#{albumBean.editAlbumDetailsById()}" value="Update" styleClass="btn btn-primary">
-                	<f:param name="selectedAlbumId" value="#{song.id}" />
+                <h:commandButton action="#{playlistBean.editAlbumDetailsById()}" value="Update" styleClass="btn btn-primary">
+                	<f:param name="selectedPlaylistId" value="#{song.id}" />
                 </h:commandButton>
             </h:column>
             <h:column>
                 <f:facet name="header">Delete</f:facet>
-                <h:commandButton action="#{albumBean.deleteAlbumDetailsById(album.id)}" value="Delete" styleClass="btn btn-danger" />
+                <h:commandButton action="#{playlistBean.deleteAlbumDetailsById(playlist.id)}" value="Delete" styleClass="btn btn-danger" />
             </h:column>
             <h:column>
             <f:facet name="header">Songs</f:facet>
-                <h:commandButton action="#{albumBean.showSongsById(album.id)}" value="Songs" styleClass="btn btn-primary">
+                <h:commandButton action="#{playlistBean.showSongsById(playlist.id)}" value="Songs" styleClass="btn btn-primary">
                 </h:commandButton>
             </h:column>
         </h:dataTable>

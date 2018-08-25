@@ -29,7 +29,7 @@ public class Song {
 	private Album album;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "playlist_song", joinColumns = { @JoinColumn(name = "playlist_id") }, inverseJoinColumns = { @JoinColumn(name = "song_id") })
-	private Set<Playlist> playlists;
+	private List<Playlist> playlists;
 	
 	public int getId() {
 		return id;
@@ -55,10 +55,10 @@ public class Song {
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
-	public Set<Playlist> getPlaylist() {
+	public List<Playlist> getPlaylist() {
 		return playlists;
 	}
-	public void setPlaylist(Set<Playlist> playlists) {
+	public void setPlaylist(List<Playlist> playlists) {
 		this.playlists = playlists;
 	}
 }
