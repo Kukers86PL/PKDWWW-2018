@@ -55,7 +55,7 @@ public class DatabaseOperations {
 	
 	@SuppressWarnings("unchecked")
 	public static List<Song> getPlaylistSongs(Playlist playlist) {
-		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s, Playlist_Song ps WHERE ps.playlist = :playlist_id AND s.song = ps.song");
+		Query queryObj = entityMgrObj.createQuery("SELECT s FROM Song s WHERE :playlist_id MEMBER OF playlists");
 		queryObj.setParameter("playlist_id", playlist);
 		List<Song> songsList = queryObj.getResultList();
 		if (songsList != null && songsList.size() > 0) {			
